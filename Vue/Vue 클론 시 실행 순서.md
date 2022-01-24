@@ -1,4 +1,4 @@
-# Vue 초기 실행 순서
+# Vue 클론 시 실행 순서
 
 1. 프로젝트 Dependencies 설치
 
