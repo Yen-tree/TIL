@@ -30,7 +30,7 @@
 
 
 
-참고: [안경잡이개발자](https://m.blog.naver.com/ndb796/221234424646)
+출처: [안경잡이개발자](https://m.blog.naver.com/ndb796/221234424646)
 
 
 
