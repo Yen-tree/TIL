@@ -156,3 +156,49 @@ YANG is a language used to describe data models of network devices.
 
 - module
   - namespace랑 prefix가 뭘까
+
+## pyang
+
+> 공식 github https://github.com/mbj4668/pyang
+> pyang is a YANG validator, transformator and code generator, written in python. It can be used to validate YANG modules for correctness, to transform YANG modules into other formats, and to write plugins to generate code from the modules.
+> YANG모델을 python module로 바꿔주는 툴
+
+### 실행하는 법
+
+#### basic validation
+
+```
+pyang 파일명.yang
+```
+
+syntactically correct한지 확인할 수 있음.
+문법적 오류가 없으면 출력이 없고, 오류가 있으면 error 내용이 출력된다.
+
+#### VIEW THE SCHEMA TREE
+
+```
+pyang -f tree ultraconfig-interfaces.yang
+```
+
+출력
+
+```
+module: ultraconfig-interfaces
+  +--rw interfaces
+     +--rw interface* [name]
+     |  +--rw name           string
+     |  +--rw address        dotted-quad
+     |  +--rw subnet-mask    dotted-quad
+     |  +--rw enabled?       boolean
+     +--ro interface-state* [name]
+        +--ro name           string
+        +--ro oper-status    enumeration
+```
+
+- rw: readwrite
+- ro: read-only
+- ?: optional leaf
+
+## YANG & YIN
+
+YANG -----pyang으로 compile-----> YIN (netconf에서 쓰는 xml 형태)
