@@ -1,0 +1,60 @@
+
+
+grouping person {
+  description "person";
+  leaf name {
+    type string;
+    description "name";
+  }
+  leaf gender {
+    type enumeration {
+      enum male;
+      enum female;
+    }
+    config false;
+    default femalel;
+    description "gender";
+  }
+  leaf birth {
+    type uint32;
+    config false;
+    description "birth";
+  }
+  leaf-list hobby {
+    type string;
+    description "hobby";
+  }
+}
+
+typedef school-type {
+  type enumeration {
+    enum elementary;
+    enum middle;
+    enum high;
+    enum colleage;
+  }
+  default elementary;
+  description "school-type";
+}
+
+grouping student {
+  description "student";
+  uses person;
+  leaf school {
+    type school-type;
+  }
+  leaf grade {
+    type uint32;
+    default 1;
+    description "grade";
+  }
+}
+
+grouping office-worker {
+  description "office-worker";
+  uses person;
+  leaf company {
+    type string;
+    description "company";
+  }
+}
