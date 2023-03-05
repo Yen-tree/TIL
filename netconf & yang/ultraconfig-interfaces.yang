@@ -35,7 +35,7 @@ module ultraconfig-interfaces {
   }
 
   container interfaces {
-    list interface {
+    list interface {  // configuration data: read write(RW)
       key "name";
       leaf name {
         type string;
@@ -63,7 +63,7 @@ module ultraconfig-interfaces {
       }
     }
     list interface-state {
-      config false;
+      config false;  // state data: read-only(RO)
       key "name";
       leaf name {
         type string;
