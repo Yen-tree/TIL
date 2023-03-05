@@ -3,6 +3,10 @@
 - 참조
   - [시스코 [칼럼] NETCONF-YANG의 이유있는 탄생!](https://gblogs.cisco.com/kr/netconf-yangs-birth-with-reason/amp/)
   - [NETCONF and YANG](https://devage.info/77/)
+  - [Learn YANG!(Ultra Config 유튜브)](https://www.youtube.com/watch?v=zy9QA-uU0u4)
+    - 같은 내용의 웹 문서: [Learn YANG - Full Tutorial for Beginners](https://ultraconfig.com.au/blog/)learn-yang-full-tutorial-for-beginners/
+  - [NETCONF by Example.pdf](https://trac.ietf.org/trac/edu/attachment/wiki/IETF94/94-module-3-netconf.pdf)
+  - [YANG by Example.pdf](https://trac.ietf.org/trac/edu/attachment/wiki/IETF94/94-module-2-yang.pdf)
 
 # 배경
 
@@ -11,6 +15,7 @@
 - 클라우드, 빅데이터, IoT 등의 등장으로 점차 네트워크가 단순히 안정적으로 연결하는 것을 넘어 새로운 기술의 기반이 되는 플랫폼으로서의 중요성이 커지고 있음
 - 새로운 서비스를 얼마나 빨리 효과적으로 적용하느냐가 중요해짐. 장비 중심, 모니터링 중심의 네트워크 관리에서 서비스 중심의 네트워크 관리로 옮겨가고 있음.
 - 클라우드나 SDN (software defined network), NFV (network funciton virtualization) 등 기존 HW 기반 on-premise 중심에서 탈피한 새로운 개념의 네트워크 환경이 대두되면서, 관리가 필요한 네트워크 노드의 수와 종류가 비교할 수 없이 커지고 네트워크 설정의 자동화의 필요성이 높아졌다. NETCONF와 YANG은 이러한 환경에 적합한 네트워크 관리 프로토콜로 정의되었다.
+- => 네트워크 환경이 기존 HW 중심에서 클라우드나 SDN, NFV 등 SW중심으로 이동하면서 중요하게 생각되고 있음
 
 ### 더 효과적인 장비 configuration에 대한 고민
 
@@ -27,29 +32,71 @@
 
 - 네트워크 관리의 핵심이 네트워크 자동화로 옮겨가고 있음
 
-> IETF? RFC?
+### IETF? RFC?
+
 > IETF(Internet Engineering Task Force): 국제 인터넷 표준화 기구
 > RFC(Request for Comments): IETF에서 제공, 관리하는 문서. 거의 모든 인터넷 표준은 RFC로 문서화 되어있음.
 
+NETCONF is the protocol for sending and receiving configuration data and state data of network devices. And YANG is the language that describes the structure of this data.
+
 # NETCONF
 
-**network configuration protocol**
+**NETwork CONFiguration protocol**
 
-장비 설정, configuration에만 중점을 둔 프로토콜
+NETCONF is the protocol for sending and receiving configuration data and state data of network devices.
 
+NETCONF는 네트워크 장비의 configuration data와 state data를 보내고 받는 프로토콜이다.
+
+### 특징
+
+- 장비 설정(configuration)에 중점을 두고 만들어진 프로토콜. ~하기 위해 개발된 프로토콜.
 - TCP/SSH 위에서 정의되는 응용 계층 프로토콜
 - xml 형식
 
+> NETCONF RFC 문서
+> https://www.rfc-editor.org/rfc/rfc6241
+
 # YANG
 
-yet another next generation
+**Yet Another Next Generation**
+
 YANG is a language used to describe data models of network devices.
+YANG is the language that describes the structure of this data.
+
+YANG은 네트워크 장비의 데이터 구조를 모델링하는 것에 사용되는 언어이다.
 
 - 데이터 모델링 **언어**
 - 데이터의 구조를 **정의**함 (DB의 스키마 같은 개념!)
 - NETCONF 기반의 멀티벤더 장비 설정을 위한 효과적인 데이터 모델링 언어
-  > YANG RFC문서
-  > https://www.rfc-editor.org/rfc/rfc6020
+
+  > YANG RFC 문서
+  > [The YANG 1.1 Data Modeling Language](https://www.rfc-editor.org/rfc/rfc7950)
+  > YANG 이전 문서 https://www.rfc-editor.org/rfc/rfc6020
+
+## Cisco 라우터에서 NETCONF 활성화하는 방법
+
+1. 장비에 다음과 같은 설정을 한다.
+   ```
+   username admin privilege 15 secret 1234
+   !
+   netconf-yang
+   !
+   interface GigabitEthernet1
+    ip address 192.168.159.10 255.255.255.0
+    no shutdown
+   !
+   ```
+2. 명령 프롬프트에서 ssh 접속
+   `ssh admin@192.168.159.10 -p 830 -s netconf`
+
+- `-p [포트넘버]`: 포트넘버
+- `-s`: session type
+
+3. 라우터가 netconf capability를 보내는 걸 확인할 수 있음
+
+> 출처 [How to Enable NETCONF on a Cisco Router](https://www.youtube.com/watch?v=10xERpTkxsc)
+
+# YANG 자세히
 
 ## Language Concept
 
@@ -161,7 +208,8 @@ YANG is a language used to describe data models of network devices.
 
 > 공식 github https://github.com/mbj4668/pyang
 > pyang is a YANG validator, transformator and code generator, written in python. It can be used to validate YANG modules for correctness, to transform YANG modules into other formats, and to write plugins to generate code from the modules.
-> YANG모델을 python module로 바꿔주는 툴
+> YANG모델을 python module로 바꿔주는 툴 (..? 아닌 것 같음)
+> yang 파일의 문법적 오류를 체크하고(validator), 스키마 트리를 보여주는 등의 기능이 있는 툴
 
 ### 실행하는 법
 
