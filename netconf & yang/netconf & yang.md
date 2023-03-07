@@ -1,10 +1,12 @@
 # netconf, yang 세미나 준비
 
 - 참조
+  - [NETCONF RFC 문서](https://www.rfc-editor.org/rfc/rfc6241)
+  - [YANG RFC 문서](https://www.rfc-editor.org/rfc/rfc7950)
   - [시스코 [칼럼] NETCONF-YANG의 이유있는 탄생!](https://gblogs.cisco.com/kr/netconf-yangs-birth-with-reason/amp/)
   - [NETCONF and YANG](https://devage.info/77/)
   - [Learn YANG!(Ultra Config 유튜브)](https://www.youtube.com/watch?v=zy9QA-uU0u4)
-    - 같은 내용의 웹 문서: [Learn YANG - Full Tutorial for Beginners](https://ultraconfig.com.au/blog/)learn-yang-full-tutorial-for-beginners/
+    - 같은 내용의 웹 문서: [Learn YANG - Full Tutorial for Beginners](https://ultraconfig.com.au/blog/learn-yang-full-tutorial-for-beginners/)
   - [NETCONF by Example.pdf](https://trac.ietf.org/trac/edu/attachment/wiki/IETF94/94-module-3-netconf.pdf)
   - [YANG by Example.pdf](https://trac.ietf.org/trac/edu/attachment/wiki/IETF94/94-module-2-yang.pdf)
 
@@ -96,6 +98,12 @@ YANG은 네트워크 장비의 데이터 구조를 모델링하는 것에 사용
 
 > 출처 [How to Enable NETCONF on a Cisco Router](https://www.youtube.com/watch?v=10xERpTkxsc)
 
+---
+
+# NETCONF 자세히
+
+- ***
+
 # YANG 자세히
 
 ## Language Concept
@@ -103,7 +111,7 @@ YANG은 네트워크 장비의 데이터 구조를 모델링하는 것에 사용
 - module base
   > The module is the base unit of definition in YANG.
 - Module과 Submodule 이름은 일반적인 prefix name과 충돌하지 않도록 작성할 것을 권장.
-- server 안에서 모든 module 이름은 유일(unique)해야한다.
+- `
 
 ## 예약어
 
@@ -120,6 +128,11 @@ YANG은 네트워크 장비의 데이터 구조를 모델링하는 것에 사용
   - 재사용이 가능한 module을 정의하고 싶을 때. 살을 더 붙여서 사용할 수 있음.
   - include로 불러옴. 가져와서 재사용, 확장해서 씀.
   - 어떤 모듈에 속해있는지 belongs-to 속성을 가짐
+
+### module에서 정의하는 것들
+
+- namespace
+  - XML namespace. globally unique URI이어야함.
 
 ### Leaf & Leaf-List
 
@@ -204,9 +217,12 @@ YANG은 네트워크 장비의 데이터 구조를 모델링하는 것에 사용
 - module
   - namespace랑 prefix가 뭘까
 
+---
+
 ## pyang
 
 > 공식 github https://github.com/mbj4668/pyang
+
 > pyang is a YANG validator, transformator and code generator, written in python. It can be used to validate YANG modules for correctness, to transform YANG modules into other formats, and to write plugins to generate code from the modules.
 > YANG모델을 python module로 바꿔주는 툴 (..? 아닌 것 같음)
 > yang 파일의 문법적 오류를 체크하고(validator), 스키마 트리를 보여주는 등의 기능이 있는 툴
